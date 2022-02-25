@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
 }
 
-task{
+task showHi{
     println("哈哈哈")
 }
 

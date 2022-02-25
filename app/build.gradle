@@ -3,6 +3,10 @@ plugins {
     id 'kotlin-android'
 }
 
+task{
+    println("哈哈哈")
+}
+
 android {
     compileSdk 32
 

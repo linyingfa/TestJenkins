@@ -15,13 +15,35 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        sginconfig {
+            keyAlias 'key0'
+            keyPassword '123456'
+            storeFile file('./Untitled.jks')
+            storePassword '123456'
+        }
+    }
 
     buildTypes {
         release {
+            signingConfigs.sginconfig
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfigs.sginconfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            def date = new Date().format("yyyy-MM-dd-HH-mm", TimeZone.getTimeZone("GMT+08"))
+            outputFileName = "TestJenkins-${versionCode}-${versionName}-${date}-${variant.buildType.name}.apk"
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
